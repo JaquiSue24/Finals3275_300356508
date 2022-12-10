@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<!--<html lang="en">-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1">
+
+<head>
+
+    <!--  <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">-->
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <script th:inline="javascript"> var u = [[${session.a}]];
+
+    if (u == 1) {
+        alert('One record added');
+    }
+
+    </script>
+
+
+    <script th:inline="javascript"> var u = [[${session.e}]];
+
+    if (u == 2) {
+        alert('One record edited');
+    }
+
+    </script>
+
+
+    <style>
+        .pre-scrollable {
+            height: 500px;
+            overflow-y: scroll;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        </style>
+
+</head>
+<body>
+<div class="container mt-2 pre-scrollable">
+<h1>Seat Reservation System</h1>
+<table>
+    <thead>
+    <tr>
+        <th>A</th>
+        <th>B</th>
+        <th>C</th>
+        <th>D</th>
+        <th>E</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>1A</td>
+        <td>1B</td>
+        <td>C1</td>
+        <td>D1</td>
+        <td>E1</td>
+    </tr>
+    <tr>
+        <td>2A</td>
+        <td>2B</td>
+        <td>C2</td>
+        <td>D2</td>
+        <td>E2</td>
+    </tr>
+    <tr>
+        <td>3A</td>
+        <td>3B</td>
+        <td>C3</td>
+        <td>D3</td>
+        <td>E3</td>
+    </tr>
+    <tr>
+        <td>4A</td>
+        <td>4B</td>
+        <td>C4</td>
+        <td>D4</td>
+        <td>E4</td>
+    </tr>
+    </tbody>
+</table>
+
+<h1>There are 19 remaining seats</h1>
+
+<form th:action="@{index}">
+    <label for="sc">Seat Code:</label>
+    <input type="text" id="sc" name="SeatCode" required>
+    <label for="cname">Customer Name:</label>
+    <input type="text" id="cname" name="CustomerName" required><br>
+    <label for="td">Transaction Date:</label>
+    <input type="date" id="td" name="Transaction Date"><br><br>
+    <input type="submit" value="Reserve">
+</form>
+
+
+
+
+<div layout:fragment="content">
+        <div class="card-body">
+
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Transaction Code</th>
+                    <th>Date</th>
+                    <th>Seat Number</th>
+                    <th>Name</th>
+                    <th> </th>
+                    <th> </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="p:${listSeat">
+                    <td th:text="${p.getId()}"></td>
+                    <td th:text="${p.getDate()}"></td>
+                    <td th:text="${p.getSeatno()}"></td>
+                    <td th:text="${p.getName}"></td>
+
+
+                    <td>
+                        <a class="btn btn-danger"
+                           onclick="return confirm('Are you sure you want to delete the record ?')"
+                           th:href="@{delete(id=${p.id})}">Delete</a>
+                    </td>
+
+                    <td>
+                        <a class="btn btn-success" th:href="@{editSeats(id=${p.id})}">Edit</a>
+                    </td>
+
+
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+</div>
+</div>
+</body>
+</html>
